@@ -1,5 +1,6 @@
 package com.mohamedfahmy.taskkoinz.presentation.di.core
 
+import com.mohamedfahmy.taskkoinz.data.api.SessionManager
 import com.mohamedfahmy.taskkoinz.data.repository.home.HomeDataBaseDataSource
 import com.mohamedfahmy.taskkoinz.data.repository.home.HomeRemoteDataSource
 import com.mohamedfahmy.taskkoinz.data.repository.home.HomeRepositoryImpl
@@ -20,12 +21,14 @@ class RepositoryModule {
     fun provideHomeRepository(
         homeDataBaseDataSource: HomeDataBaseDataSource,
         homeRemoteDataSource: HomeRemoteDataSource,
+        sessionManager: SessionManager,
         checkNetworkAvailable: CheckNetworkAvailable
     ): HomeRepository {
 
         return HomeRepositoryImpl(
             homeRemoteDataSource,
             homeDataBaseDataSource,
+            sessionManager,
             checkNetworkAvailable
         )
     }

@@ -13,7 +13,7 @@ interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveItem(item: List<Photo>)
 
-    @Query("select * from Item order by id")
+    @Query("select * from Item ")
     fun getItems(): List<Photo>
 
 }

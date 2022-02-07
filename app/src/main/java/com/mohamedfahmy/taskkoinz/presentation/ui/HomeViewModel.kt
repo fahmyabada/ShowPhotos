@@ -3,12 +3,9 @@ package com.mohamedfahmy.taskkoinz.presentation.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.mohamedfahmy.taskkoinz.data.model.Items
 import com.mohamedfahmy.taskkoinz.data.model.Photo
 import com.mohamedfahmy.taskkoinz.domain.usecase.GetItemsUseCase
-import com.mohamedfahmy.taskkoinz.domain.usecase.SaveItemsUseCase
 import com.tayyar.delivery.data.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,9 +15,8 @@ class HomeViewModel(
     private val getItemsUseCase: GetItemsUseCase,
 ) : AndroidViewModel(app) {
 
-    val items: MutableLiveData<Resource<Items>> = MutableLiveData()
+    val items: MutableLiveData<Resource<List<Photo>>> = MutableLiveData()
     val numPageViewModel: MutableLiveData<String> = MutableLiveData()
-    val setData: MutableLiveData<List<Photo>> = MutableLiveData()
 
     init {
         numPageViewModel.value = "1"

@@ -37,11 +37,10 @@ class CustomHolderHome :
 
 
     fun setData(newItem: List<Photo>) {
-        oldItem.clear()
-        oldItem.addAll(item)
+        val oldList = ArrayList(item)
         item.clear()
         item.addAll(newItem)
-        val result: DiffUtil.DiffResult = DiffUtil.calculateDiff(HomeDiffCallback(oldItem, item))
+        val result: DiffUtil.DiffResult = DiffUtil.calculateDiff(HomeDiffCallback(oldList, item))
         result.dispatchUpdatesTo(this)
     }
 

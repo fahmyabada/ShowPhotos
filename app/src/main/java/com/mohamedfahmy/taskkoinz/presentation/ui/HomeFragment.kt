@@ -29,7 +29,6 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: HomeViewModelFactory
     private lateinit var viewModel: HomeViewModel
-    private val data: MutableList<Photo> = ArrayList()
 
     @Inject
     lateinit var checkNetworkAvailable: CheckNetworkAvailable
@@ -72,16 +71,12 @@ class HomeFragment : Fragment() {
                         response.data?.let {
                             try {
 
+                                Log.i("success", "Photos********* $it")
                                 viewModel.numPageViewModel.postValue(
-                                    (it.photos.page + 1).toString()
+                                    sessionManager.getInt("page").toString()
                                 )
-                                sessionManager.putInt("page", (it.photos.page + 1))
 
-                                if (it.photos.photo.isNotEmpty()) {
-                                    data.addAll(it.photos.photo)
-                                }
-
-                                viewModel.setData.postValue(data)
+                                adapterValue.setData(it)
 
 
                             } catch (e: Exception) {
@@ -104,20 +99,6 @@ class HomeFragment : Fragment() {
                         Log.i("Loading", "Photos*********")
                     }
                 }
-            }
-        }
-
-        //setData
-        viewModel.setData.observe(viewLifecycleOwner) {
-            try {
-                if (data.isEmpty()) {
-                    data.addAll(it)
-                }
-                Log.i("Success", "setData********* ${it.size}")
-
-                adapterValue.setData(it)
-            } catch (e: Exception) {
-                Log.i("errorCatch", "setData********* ${e.message}")
             }
         }
 
